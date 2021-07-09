@@ -26,7 +26,7 @@ You will also need to build the two tests in the `CheckoutForm.test.js` file and
 
 ## Instructions
 
-### Task 1: Project Setup
+### Task 1: Project Setup - DONE
 
 #### Repo Setup
 * [ ] Fork and clone this repository.
