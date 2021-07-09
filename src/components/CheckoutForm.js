@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import useForm from '../hooks/useForm'
 
 const initialValue = {
   firstName: "",
@@ -7,6 +8,7 @@ const initialValue = {
   city: "",
   state: "",
   zip: "",
+  showSuccessMessage: false
 };
 
 // This form should be handled by a "useForm" custom hook
@@ -14,17 +16,24 @@ const initialValue = {
 // and replace the necessary stateful logic from CheckoutForm with the hook
 
 const CheckoutForm = (props) => {
-  const [showSuccessMessage, setShowSuccessMessage] = useState(false);
-  const [values, setValues] = useState(initialValue);
+  // const [showSuccessMessage, setShowSuccessMessage] = useState(false);
+  // const [values, setValues] = useState(initialValue);
 
-  const handleChanges = (e) => {
-    setValues({ ...values, [e.target.name]: e.target.value });
-  };
+  // const handleChanges = (e) => {
+  //   setValues({ ...values, [e.target.name]: e.target.value });
+  // };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    setShowSuccessMessage(true);
-  };
+  // const handleSubmit = (e) => {
+  //   e.preventDefault();
+  //   setShowSuccessMessage(true);
+  // };
+
+  const { formData, handleInputChange, handleSubmit } = useForm(
+    initialValue,
+    (formData) => console.log(formData)
+  )
+
+  const { firstName, lastName, address, city, state, zip, showSuccessMessage } = formData
 
   return (
     <>
@@ -34,37 +43,43 @@ const CheckoutForm = (props) => {
           First Name:
           <input
             name="firstName"
-            value={values.firstName}
-            onChange={handleChanges}
+            value={firstName}
+            data-testid="firstName-input"
+            type="text"
+            onChange={handleInputChange}
           />
         </label>
         <label>
           Last Name:
           <input
             name="lastName"
-            value={values.lastName}
-            onChange={handleChanges}
+            data-testid='lastName-input'
+            type="text"
+            value={lastName}
+            onChange={handleInputChange}
           />
         </label>
         <label>
           Address:
           <input
             name="address"
-            value={values.address}
-            onChange={handleChanges}
+            data-testid="address-input"
+            type="text"
+            value={address}
+            onChange={handleInputChange}
           />
         </label>
         <label>
           City:
-          <input name="city" value={values.city} onChange={handleChanges} />
+          <input name="city" data-testid="city-input" type="text" value={city} onChange={handleInputChange} />
         </label>
         <label>
           State:
-          <input name="state" value={values.state} onChange={handleChanges} />
+          <input name="state" data-testid='state-input' type="text" value={state} onChange={handleInputChange} />
         </label>
         <label>
           Zip:
-          <input name="zip" value={values.zip} onChange={handleChanges} />
+          <input name="zip" data-testid='zip-input' type='text' value={zip} onChange={handleInputChange} />
         </label>
         <button>Checkout</button>
       </form>
@@ -78,11 +93,11 @@ const CheckoutForm = (props) => {
           <br />
           <br />
           <p>
-            {values.firstName} {values.lastName}
+            {firstName} {lastName}
           </p>
-          <p>{values.address}</p>
+          <p>{address}</p>
           <p>
-            {values.city}, {values.state} {values.zip}
+            {city}, {state} {zip}
           </p>
         </div>
       )}
